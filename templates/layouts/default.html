@@ -1,0 +1,56 @@
+{% extends 'layouts/empty.html' %}
+{% block layout %}
+<header>
+    <section id="logo">
+        <a href="{{ config.base_url }}">{{ config.title }}</a>
+    </section>
+    <nav>
+        {% if config.extra.navigation %}
+            <ul>
+                {% for entry in config.extra.navigation %}
+                    {% if entry.target is ending_with("_index.md") %}
+                        {% set target = get_section(path=entry.target) %}
+                    {% else %}
+                        {% set target = get_page(path=entry.target) %}
+                    {% endif %}
+                    <li {% if target.path == current_path %}class="active"{% endif %}>
+                        <a href="{{ target.permalink }}">{{ entry.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if config.extra.socials %}
+            <ul>
+                {% for entry in config.extra.socials %}
+                    <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </nav>
+</header>
+
+{% block content %}
+    <p>This is an empty layout</p>
+{% endblock content %}
+
+<footer>
+    {% set author = config.extra.author %}
+    {% if author %}
+        <section id="author">
+            {% if author.fingerprint %}
+                <img src="{{ get_url(path="fingerprint.svg") }}" alt="{{ author.fingerprint }}">
+            {% endif %}
+            
+            <span>{{ author.name }}{% if author.email %} <span>{{author.email}}</span>{% endif %}</p>
+            <p>{{ author.fingerprint }}</p>
+            <code>gpg2 --locate-keys {{author.email}}</code>
+        </section>
+    {% endif %}
+
+    <section id="copyright">
+        <p>&copy; {{ now() | date(format="%Y") }} {{ config.extra.author.name }}</p>
+    </section>
+</footer>
+
+{% block script %}{% endblock script %}
+{% endblock content %}

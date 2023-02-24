@@ -1,0 +1,46 @@
+{% import "macros/number.html" as number %}
+
+{% extends "layouts/default.html" %}
+
+{% macro ingredient(ingredient) %}
+{% if ingredient is iterable and ingredient is not object %}
+<ul class="alternatives">
+    {% for alternative in ingredient %}
+    <li>{{ self::ingredient(ingredient=alternative) }}</li>
+    {% endfor %}
+</ul>
+{% elif ingredient is object %}
+{% if ingredient.amount %}
+<ul class="amount">
+    {% if ingredient.amount is iterable %}
+    {% for amount in ingredient.amount %}
+    <li>{% if loop.index > 1 %}or {% endif %}{{ amount }}</li>
+    {% endfor %}
+    {% else %}
+    <li>{{ ingredient.amount }}</li>
+    {% endif %}
+</ul>
+{% endif %}
+<span class="name">{{ ingredient.name }}</span>
+{% endif %}
+{% endmacro ingredient %}
+
+{% block content %}
+
+{% if page.extra.ingredients %}
+<ul id="ingredients">
+    {% for ingredient in page.extra.ingredients %}
+    <li class="ingredient">
+        {{ self::ingredient(ingredient=ingredient) }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{{ page.content | safe }}
+{{ page.relative_path | safe }}
+{{ page.toc | safe }}
+
+{% if page.earlier %}Previous article: {{ page.earlier.permalink }}{% endif %}
+{% if page.later %}Next article: {{ page.later.permalink }}{% endif %}
+{% endblock content %}

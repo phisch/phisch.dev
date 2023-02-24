@@ -1,0 +1,37 @@
+base_url = "https://phisch.dev"
+title = "phisch.dev"
+description = "Programming, designing and exploring interesting stuff."
+default_language = "en"
+
+compile_sass = true
+minify_html = true
+build_search_index = true
+generate_feed = true
+feed_filename = "rss.xml"
+
+taxonomies = [
+    { name = "projects", feed = true, render = false },
+    { name = "tags", feed = true, render = false },
+]
+
+[markdown]
+highlight_code = true
+highlight_theme = "inspired-github"
+
+[extra]
+
+navigation = [
+    { title = "Blog", target = "_index.md" },
+    { title = "About", target = "pages/about.md" },
+    { title = "Contact", target = "pages/contact.md" },
+    { title = "Phrame", target = "pages/phrame/index.md" }
+]
+
+socials = [
+    { title = "GitHub", url = "https://github.com/phisch" },
+]
+
+[extra.author]
+name = "Philipp Schaffrath"
+email = "philipp.schaffrath@gmail.com"
+fingerprint = "A00155F3C961D57E645299D66BEB117F7BDBD749"

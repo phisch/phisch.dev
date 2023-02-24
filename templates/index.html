@@ -1,0 +1,43 @@
+{% extends 'layouts/default.html' %}
+{% block content %}
+    {% set posts = get_section(path="posts/_index.md") %}
+    {% if posts.pages | length > 0 %}
+    <ul>
+        {% for post in posts.pages %}
+        <li>
+            <article>
+
+                {% if post.taxonomies.tags %}
+                {% set tags = post.taxonomies.tags %}
+                <ul class="tags">
+                    {% for tag in tags %}
+                    <li><a href="{{ tag }}">{{ tag }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if post.taxonomies.projects %}
+                {% set projects = post.taxonomies.projects %}
+                <ul class="projects">
+                    {% for project in projects %}
+                    <li><a href="{{ project }}">{{ project }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <header>
+                    <h3><a href="{{ post.permalink }}">{{ post.title }}</a></h3>
+                    <time datetime="{{ post.date | date(format="%Y-%m-%d") }}">{{ post.date | date(format="%b %d, %Y") }}</time>
+                    <p>{{ post.reading_time }} minute{{ post.reading_time | pluralize(plural="s") }} read</p>
+                </header>
+                {% if post.summary %}
+                <summary>
+                    {{ post.summary | safe }}
+                </summary>
+                {% endif %}
+            </article>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock content %}
