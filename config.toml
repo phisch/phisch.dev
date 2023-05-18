@@ -10,13 +10,14 @@ generate_feed = true
 feed_filename = "rss.xml"
 
 taxonomies = [
-    { name = "projects", feed = true, render = false },
-    { name = "tags", feed = true, render = false },
+    { name = "projects", feed = true, render = true },
+    { name = "tags", feed = true, render = true },
 ]
 
 [markdown]
 highlight_code = true
-highlight_theme = "inspired-github"
+extra_syntaxes_and_themes = ["highlight_themes"]
+highlight_theme = "phocus"
 
 [extra]
 

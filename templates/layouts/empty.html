@@ -8,7 +8,9 @@
     <meta name="description" content="{{ config.description }}">
     <meta name="author" content="{{ config.extra.author.name }}">
     <title>{{ config.title }}</title>
-    {% block style %}{% endblock style %}
+    {% block style %}
+        <link rel="stylesheet" href="{{ get_url(path="styles.css") }}">
+    {% endblock style %}
 </head>
 
 <body>
